@@ -1,0 +1,183 @@
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import java.util.Random;
+import java.text.DecimalFormat;
+public class Customer_Loan_Calculation{
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+
+JOptionPane.showMessageDialog(null,&quot;Hello!,\nWelcome to
+Standard Chartered Bank&quot;);
+JOptionPane.showMessageDialog(null,&quot;Kindly fill out the
+following information if you want to open a bank account&quot;);
+
+String firstname=JOptionPane.showInputDialog(&quot;Please enter
+
+your first name: &quot;);
+
+String lastname=JOptionPane.showInputDialog(&quot;Please enter
+
+your last name: &quot;);
+
+String email=JOptionPane.showInputDialog(&quot;Please enter your
+
+email_ID: &quot;);
+
+String phone=JOptionPane.showInputDialog(&quot;Please enter your
+
+phone number: &quot;);
+
+int phone_number=Integer.parseInt(phone);
+String year=JOptionPane.showInputDialog(&quot;Please enter your
+
+birth year: &quot;);
+
+int Birth_year=Integer.parseInt(year);
+Random generator=new Random();
+int num=Birth_year %100;
+int set1=phone_number % 10000;
+int set2= generator.nextInt(899)+100;
+
+String message=String.format(&quot;First name:
+
+&quot;+firstname+&quot;\nLast name: &quot;+lastname+&quot;\nE-mail ID: &quot;+email+&quot;\nPhone
+
+number: &quot;+phone_number+&quot;\nBirth year: &quot;+year+&quot;\nYour account ID is:
+&quot;+num+&quot;&quot;+set1+&quot;&quot;+set2);
+
+JOptionPane.showMessageDialog(null, message);
+
+//After opening the account, customer is provided with 3
+
+options to choose from:
+
+//Option 1= Deposit money
+//Option 2= Withdraw money
+//Option 3= Loan schedule
+
+Scanner input=new Scanner(System.in);
+String option;
+System.out.println(&quot;Do you want to Deposit money, Withdraw
+
+money, or check loan amount and calculations?&quot;);
+
+System.out.println(&quot;\nPlease enter the number for your
+desired option: &quot;);// the options are numbered as 1,2,and 3 in the
+following cases
+
+int option_number=input.nextInt();
+
+switch(option_number) {
+case 1:
+option=&quot;Deposit Money&quot;;
+System.out.println(&quot;Enter your amount of deposit: &quot;);
+int deposit_amount=input.nextInt();
+System.out.println(&quot;Your balance is: &quot;
+
++deposit_amount);
+break;
+case 2:
+option=&quot;Withdraw money&quot;;
+System.out.println(&quot;Enter amount you wish to withdraw:
+
+&quot;);
+
+int x=input.nextInt();
+//the minimum amount of money below which no withdrawal
+
+is allowed
+
+if (x&gt;=500) {
+System.out.println(&quot;You can proceed to withdraw&quot;);
+//account holder can only withdraw money if
+there is a minimum balance of 500 BDt in the account already existing
+
+}
+else if (x&lt;500) {
+//account holder cannot withdraw money for any balance
+
+less than 500BDT.
+
+JOptionPane.showMessageDialog(null, &quot;Sorry! \n\tYou
+
+cannot proceed to withdraw.&quot;);
+
+}
+break;
+case 3:
+option=&quot;Loan balance&quot;;
+System.out.print(&quot;Type yes if you want to take a loan:
+
+&quot;);
+
+int a=input.nextInt();
+int yes=1; // Yes represented by the number 1- which
+
+shows &quot;Yes I want to take a loan&quot;
+int no=0; // No is represented by the number 0- which
+says &quot;No I do not want to take a loan&quot;
+
+if (a==0) {
+JOptionPane.showMessageDialog(null, &quot;Thank you for
+
+your cooperation&quot;);
+
+}
+else if (a==1) {
+
+System.out.println(&quot;\n\nEnter the desired amount of loan:
+&quot;);// account holder can type in the desired amount of loan he/she
+wants to take
+
+double loan_amount=input.nextDouble();
+
+double interest_rate=0.90;
+double loan_year=2;
+
+double monthly_interest;
+double principal;
+
+double loan_balance=loan_amount;
+double
+
+term=Math.pow((1+interest_rate/12),12*loan_year);
+
+double
+
+payment=(loan_amount*interest_rate/12*term)/(term-1);
+double number_of_payment=loan_year*12;
+DecimalFormat number=new DecimalFormat(&quot;#,##0.0000&quot;);
+System.out.println(&quot;Monthly_payment:
+
+&quot;+number.format(payment));
+
+System.out.println(&quot;\nMonth\t\t Interest\t\t
+
+Principal\t\t Balance&quot;);
+
+for (int month=1;month&lt;=number_of_payment; month++)
+{
+monthly_interest=interest_rate/12*loan_balance;
+if(month!=number_of_payment){
+principal=payment-monthly_interest;
+}
+else
+{
+principal=loan_balance;
+payment=loan_balance+monthly_interest;
+}
+loan_balance=principal;
+
+System.out.println(month+&quot;\t\t&quot;+number.format(monthly_interest)+&quot;\t\t&quot;
++number.format(principal)+&quot;\t\t&quot;+number.format(loan_balance));
+
+}
+break;
+}
+}
+JOptionPane.showMessageDialog(null, &quot;Thank you for your
+
+patience.\n\tHave a Good Day!!!&quot;);
+}
+
+}
